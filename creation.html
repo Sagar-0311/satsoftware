@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanban Card Creation</title>
+  <link rel="stylesheet" href="creation.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<!-- SheetJS for Excel Import (as before) -->
+<body>
+    <div class="header-bar">
+  <h1 style="margin: 20px; flex: 1;">KANBAN CARD DATA</h1>
+  <button onclick="goBack()" class="back-button" style="margin-left:auto;">⬅</button>
+</div>
+<div class="form-fields">
+  <label>CARD NUMBER<input id="cardNumber" readonly /></label>
+  <input type="hidden" id="docId" />
+  <label>PART NO<input id="partNo" /></label>
+  <label>ITEM NAME<input id="itemName" /></label>
+  <label>LOCATION<input id="location" /></label>
+  <label>BIN QTY<input id="binQty" /></label>
+  <label>UOM<input id="uom" /></label>
+  <label>CUTTING<input id="cutting" /></label>
+  <label>NUMBER OF BIN<input id="numOfBin" /></label>
+  <label>CARD<input id="card" /></label>
+  <label>FINISH GOODS<input id="finishGoods" /></label>
+  <label>PRODUCT GROUP<select id="productGroup"></select></label>
+  <label>ITEM CATEGORY<select id="itemCategory"></select></label>
+  <label>SUPPLIER<select id="supplier"></select></label>
+  <label>CARD OWNER<select id="cardOwner"></select></label>
+  <label>CUSTOMER<select id="customer"></select></label>
+  <label>BOARD NAME<select id="boardName"></select></label>
+  <label>PO TO GRN LEAD TIME<input id="poToGrnLeadTime" /></label>
+  <label>CARD LEAD TIME<input id="cardLeadTime" /></label>
+  <label>MACHINE<select id="machine"></select></label>
+</div>
+
+<div class="button-row">
+  <button class="btn green" onclick="addCard()">ADD</button>
+  <button class="btn yellow" onclick="updateCard()">UPDATE</button>
+  <button class="btn gray" onclick="resetForm()">RESET</button>
+  <button class="btn red" onclick="deleteCard()">DELETE</button>
+  <button onclick="exportExcel()">Export Excel</button>
+  <label for="excelFile" class="file-label">Choose File</label>
+  <input type="file" id="excelFile" accept=".xlsx,.xls,.csv" />
+  <button onclick="importExcel()">Import Excel</button>
+  <input type="text" id="printCardNumbers" placeholder="Enter Card Numbers (e.g. 1,2,6-10)" />
+  <button class="btn print-btn" onclick="generateCardPDFPreview()">PRINT</button>
+</div>
+
+<div id="loader" style="display:none; text-align:center; color:red; font-weight:bold; margin-bottom:10px;">
+  ⏳ Processing... Please wait...
+</div>
+
+<div class="table-section">
+  <table id="cardTable">
+    <thead>
+      <tr>
+        <th>ID</th><th>PART NO</th><th>ITEM NAME</th><th>LOCATION</th><th>BIN QTY</th><th>UOM</th><th>CUTTING</th><th>NUMBER OF BIN</th><th>CARD</th><th>FINISH GOODS</th><th>PRODUCT GROUP</th><th>ITEM CATEGORY</th><th>SUPPLIER</th><th>CARD OWNER</th><th>CUSTOMER</th><th>BOARD NAME</th><th>PO-GRN</th><th>CARD TIME</th><th>MACHINE</th>
+      </tr>
+      <tr>
+        <th><input onkeyup="searchColumn()" /></th><th><input onkeyup="searchColumn()" /></th>
+        <th><input onkeyup="searchColumn()" /></th><th><input onkeyup="searchColumn()" /></th>
+        <th><input onkeyup="searchColumn()" /></th><th><input onkeyup="searchColumn()" /></th>
+        <th><input onkeyup="searchColumn()" /></th><th><input onkeyup="searchColumn()" /></th>
+        <th><input onkeyup="searchColumn()" /></th><th><input onkeyup="searchColumn()" /></th>
+        <th><input onkeyup="searchColumn()" /></th><th><input onkeyup="searchColumn()" /></th>
+        <th><input onkeyup="searchColumn()" /></th><th><input onkeyup="searchColumn()" /></th>
+        <th><input onkeyup="searchColumn()" /></th><th><input onkeyup="searchColumn()" /></th>
+        <th><input onkeyup="searchColumn()" /></th><th><input onkeyup="searchColumn()" /></th>
+        <th><input onkeyup="searchColumn()" /></th>
+      </tr>
+    </thead>
+    <tbody id="cardTableBody"></tbody>
+  </table>
+  <div id="pagination" class="pagination-controls" style="text-align:center; margin-top:10px;"></div>
+</div>
+
+
+  <!-- Main Script (offline version) -->
+ <script type="module" src="creation.js"></script>
+
+  <!-- Table sorting (unchanged) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("th").forEach((header, index) => {
+        header.addEventListener("click", () => {
+          const rows = Array.from(document.querySelectorAll("#cardTableBody tr"));
+          const sorted = rows.sort((a, b) => {
+            const aText = a.children[index]?.innerText || "";
+            const bText = b.children[index]?.innerText || "";
+            return aText.localeCompare(bText, undefined, { numeric: true });
+          });
+          const body = document.getElementById("cardTableBody");
+          body.innerHTML = "";
+          sorted.forEach(row => body.appendChild(row));
+        });
+      });
+    });
+  </script>
+</body>
+</html>

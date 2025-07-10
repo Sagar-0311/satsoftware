@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kanban Card Tracking</title>
+  <link rel="stylesheet" href="tracking.css">
+</head>
+<body>
+
+  <div class="header-bar">
+  <h1 style="margin: 18px; flex: 1;">KANBAN CARD TRACKING</h1>
+  <a href="menu.html" class="back-button" style="margin-left:auto;">ᐊ BACK</a>
+  </div>
+  <div class="form-fields">
+    <label>CARD NUMBER
+      <input type="text" id="cardNumber">
+    </label>
+    <label>CARD STATUS
+      <select id="status">
+        <option value="BIN EMPTY">BIN EMPTY</option>
+        <option value="RM SHORT">RM SHORT</option>
+        <option value="WIP">WIP</option>
+        <option value="JOB-WORK">JOB-WORK</option>
+        <option value="PR DONE">PR DONE</option>
+        <option value="PO DONE">PO DONE</option>
+        <option value="DISPATCHED">DISPATCHED</option>
+      </select>
+    </label>
+    <label>CARD RECEIVED DATE
+      <input type="date" id="receivedDate">
+    </label>
+    <label>CARD EDC
+      <input type="date" id="cardEDC">
+    </label>
+    <label id="dispatchWrapper" style="display: flex;">
+      DISPATCH DATE
+      <input type="date" id="dispatchDate">
+    </label>
+    <label id="productionWrapper" style="display: flex;">
+      PRODUCTION ORDER
+      <input type="text" id="productionOrder">
+    </label>
+    <label id="machineWrapper" style="display:flex;">
+  MACHINE
+  <select id="machine" disabled>
+    <option value="">-- SELECT MACHINE --</option>
+  </select>
+  </div>
+<div class="button-row" style="align-items: center;">
+  <button class="btn green" onclick="addCard()">ADD</button>
+  <button class="btn yellow" onclick="updateCard()">UPDATE</button>
+  <button class="btn red" onclick="deleteCard()">DELETE</button>
+  <button class="btn gray" onclick="resetForm()">RESET</button>
+  <input type="file" id="importFile" accept=".csv" onchange="importCSV(event)" style="display: none;">
+  <div style="flex: 1;"></div>
+  <label class="show-dispatch-label" style="display:flex; align-items:center; gap:6px; margin-bottom:0; margin-left:auto; cursor:pointer; white-space:nowrap;">
+    <input type="checkbox" id="showDispatched" onchange="toggleDispatchedFilter()" style="margin-right: 5px;">
+    <span>Show Dispatched Cards</span>
+  </label>
+</div>
+
+<div class="table-section">  
+  <table id="kanbanTable">
+      <thead>
+        <tr>
+          <th>SR NO</th>
+          <th>CARD NO</th>
+          <th>PART NO</th>
+          <th>ITEM NAME</th>
+          <th>LOCATION</th>
+          <th>BIN QTY</th>
+          <th>CARD</th>
+          <th>BOARD NAME</th>
+          <th>MACHINE</th>
+          <th>STATUS</th>
+          <th>RECEIVED DATE</th>
+          <th>CARD EDC</th>
+          <th>DISPATCH DATE</th>
+          <th>PRODUCTION ORDER</th>
+        </tr>
+        <tr>
+          <th><input onkeyup="searchColumn()" placeholder=""></th>
+          <th><input onkeyup="searchColumn()" placeholder=""></th>
+          <th><input onkeyup="searchColumn()" placeholder=""></th>
+          <th><input onkeyup="searchColumn()" placeholder=""></th>
+          <th><input onkeyup="searchColumn()" placeholder=""></th>
+          <th><input onkeyup="searchColumn()" placeholder=""></th>
+          <th><input onkeyup="searchColumn()" placeholder=""></th>
+          <th><input onkeyup="searchColumn()" placeholder=""></th>
+          <th><input onkeyup="searchColumn()" placeholder=""></th>
+          <th><input onkeyup="searchColumn()" placeholder=""></th>
+          <th><input onkeyup="searchColumn()" placeholder=""></th>
+          <th><input onkeyup="searchColumn()" placeholder=""></th>
+          <th><input onkeyup="searchColumn()" placeholder=""></th>
+          <th><input onkeyup="searchColumn()" placeholder=""></th>
+        </tr>
+      </thead>
+      <tbody id="trackingTableBody"></tbody>
+    </table>
+    <div id="pagination" class="pagination-controls" style="text-align:center; margin-top:10px;"></div>
+  </div>
+  <div class="button-row secondary-controls" style="justify-content: flex-end; margin-top: 10px; margin-right: 36px;">
+  <button class="btn blue" onclick="exportToExcel()">EXPORT</button>
+  <button class="btn blue" onclick="document.getElementById('importFile').click()">IMPORT</button>
+  <button class="btn blue" onclick="emailTable()">EMAIL</button>
+  <button class="btn green" onclick="whatsappCard()">WHATSAPP</button>
+</div>
+
+<script type="module" src="tracking-firebase.js"></script>
+
+<!-- Old Toast DIV को replace करें -->
+<div id="toast" style="
+  display: none;
+  position: fixed;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgb(50 188 240);
+  color: rgb(0, 0, 0);
+  padding: 24px 34px 18px 34px;
+  border-radius: 10px;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.25);
+  font-size: 17px;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  min-width: 320px;
+  text-align: center;
+  z-index: 99999;
+">
+  <span id="toast-message">Card Added Successfully</span><br>
+  <button id="toast-ok" style="
+      margin-top: 18px;
+      padding: 8px 32px;
+      font-size: 15px;
+      background: #fff;
+      color: #007caa;
+      border: none;
+      border-radius: 4px;
+      font-weight: 700;
+      cursor: pointer;
+  ">OK</button>
+</div>
+<div id="otpModal" style="display:none; position:fixed; z-index:999999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.18); align-items:center; justify-content:center;">
+  <div style="background:#fff; border-radius:11px; min-width:330px; box-shadow:0 2px 24px #0003; padding:34px 36px 24px 36px; text-align:center;">
+    <div style="font-size:19px; font-weight:700; margin-bottom:13px;">Enter OTP sent to your email</div>
+    <input id="otpInput" type="text" maxlength="6" style="font-size:19px; letter-spacing:4px; padding:9px 14px; border-radius:6px; border:1.5px solid #ccc; width: 70%; margin-bottom:20px;" autofocus>
+    <div id="otpErr" style="color:#e11; font-size:15px; min-height:24px;"></div>
+    <button id="otpVerifyBtn" style="background:#00a88b; color:#fff; font-size:16px; font-weight:600; border:none; border-radius:5px; padding:9px 38px; margin-right:7px;">Verify & Delete</button>
+    <button onclick="closeOtpModal()" style="background:#eee; color:#555; font-size:15px; border:none; border-radius:5px; padding:8px 24px;">Cancel</button>
+  </div>
+</div>
+
+</body>
+</html>

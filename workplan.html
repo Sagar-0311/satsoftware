@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Production Planning Board</title>
+  <link rel="stylesheet" href="workplan.css">
+</head>
+<body>
+  <!-- Header -->
+<div class="header-bar">
+  <h1 style="margin: 20px; flex: 1;">PRODUCTION STATUS BOARD</h1>
+  <button onclick="goBack()" class="back-button" style="margin-left:auto;">⬅</button>
+</div>
+
+<!-- MACHINE BUTTONS (Top Section) -->
+<!-- MACHINE BUTTON GROUPS - COLORED, CLASSIC LOOK -->
+<div style="padding: 0 0 16px 34px;">
+  <label for="machineSelect" style="font-size:14px;font-weight:600; color:#284265;margin-right:8px;">Machine :</label>
+  <select id="machineSelect" style="padding:4px 18px 4px 10px; border-radius:2px; font: size 16px; border:1.2px solid #b7c3d6; min-width:170px;">
+    <option value="ALL">ALL MACHINES</option>
+    <option value="CNC-1">CNC-1</option>
+    <option value="CNC-2">CNC-2</option>
+    <option value="LATHE-1">LATHE-1</option>
+    <option value="LATHE-2">LATHE-2</option>
+    <option value="LATHE-3">LATHE-3</option>
+    <option value="DRILL-1">DRILL-1</option>
+    <option value="DRILL-2">DRILL-2</option>
+    <option value="BANDSAW-1">BANDSAW-1</option>
+    <option value="BANDSAW-2">BANDSAW-2</option>
+    <option value="BANDSAW-3">BANDSAW-3</option>
+    <option value="WLD ST-1">WLD ST-1</option>
+    <option value="WLD ST-2">WLD ST-2</option>
+    <option value="WLD ST-3">WLD ST-3</option>
+    <option value="WLD ST-4">WLD ST-4</option>
+    <option value="WLD ST-5">WLD ST-5</option>
+    <option value="WLD ST-6">WLD ST-6</option>
+    <option value="ROBOT">ROBOT</option>
+    <option value="LASER CUTTING">LASER CUTTING</option>
+  </select>
+</div>
+  <!-- Table Section -->
+<div class="table-section">
+  <table id="statusTable">
+<thead>
+  <tr>
+    <th>CARD NO</th>
+    <th>PART NO</th>
+    <th>ITEM NAME</th>
+    <th>BIN QTY</th>
+    <th>CARD</th>
+    <th>LEAD TIME</th>
+    <th>MACHINE</th>
+    <th>WORKING HR</th>
+    <th>STATUS</th>
+    <th>PRD. ORDER</th>
+    <th>START DATE</th>
+    <th>START TIME</th>
+    <th>END DATE</th>
+    <th>END TIME</th>
+    <th>AT 10:00 AM</th>
+    <th>RK-1</th>
+    <th>AT 01:00 PM</th>
+    <th>RK-2</th>
+    <th>AT 04:00 PM</th>
+    <th>RK-3</th>
+    <th>AT 07:00 PM</th>
+    <th>RK-4</th>
+    <th>AT 10:00 PM</th>
+    <th>RK-5</th>
+    <th>AT 01:00 AM</th>
+    <th>RK-6</th>
+    <th>AT 04:00 AM</th>
+    <th>RK-7</th>
+    <th>AT 07:00 AM</th>
+    <th>RK-8</th>
+  </tr>
+  <tr>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+    <th><input onkeyup="searchColumn()" /></th>
+  </tr>
+</thead>
+    <tbody>
+      <!-- Firebase data यहाँ आएगा -->
+    </tbody>
+  </table>
+  <!-- POPUP MODAL (hidden by default) -->
+<!-- MODERN POPUP MODAL -->
+<div id="editModal" class="modern-modal">
+  <div class="modern-modal-content">
+    <button id="closeModalBtn" class="modern-modal-close">×</button>
+    <!-- (Optional) Your logo or icon here -->
+    <div class="modern-modal-title">ENTER PRODUCTION DETAILS</div>
+    <div class="modern-modal-form">
+      <div class="modal-row">
+        <span class="modal-label">CARD NO</span>
+        <span class="modal-value" id="modalCardNo"></span>
+      </div>
+      <div class="modal-row">
+        <span class="modal-label">PART NO</span>
+        <span class="modal-value" id="modalPartNo"></span>
+      </div>
+      <div class="modal-row">
+        <span class="modal-label">ITEM NAME</span>
+        <span class="modal-value" id="modalItemName"></span>
+      </div>
+      <div class="modal-row">
+        <span class="modal-label">BIN QTY</span>
+        <span class="modal-value" id="modalBinQty"></span>
+      </div>
+      <div class="modal-row">
+        <span class="modal-label">MACHINE</span>
+        <span class="modal-value" id="modalMachine"></span>
+      </div>
+      <div class="modal-row">
+        <span class="modal-label">Select Time</span>
+        <select id="modalTimeField" class="modal-input">
+          <option value="">-- SELECT --</option>
+          <option value="at10am">AT 10:00 AM</option>
+          <option value="at1f">AT 01:00 PM</option>
+          <option value="at04">AT 04:00 PM</option>
+          <option value="at07">AT 07:00 PM</option>
+          <option value="at10">AT 10:00 PM</option>
+          <option value="at01">AT 01:00 AM</option>
+          <option value="at04b">AT 04:00 AM</option>
+          <option value="at07b">AT 07:00 AM</option>
+        </select>
+      </div>
+      <div class="modal-row">
+        <span class="modal-label">Enter Qty</span>
+        <input id="modalQty" type="number" class="modal-input" min="0" disabled>
+      </div>
+      <div class="modal-row">
+        <span class="modal-label">REMARKS</span>
+        <input id="modalTag" type="text" maxlength="50" class="modal-input" style="text-transform:uppercase;" disabled>
+      </div>
+      <div class="modal-actions">
+        <button id="modalClearBtn" class="modern-btn modern-btn-clear" disabled>Clear Field</button>
+        <button id="modalUpdateBtn" class="modern-btn modern-btn-update" disabled>Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <div id="pagination" class="pagination-controls" style="text-align:center; margin-top:10px;"></div>
+</div>
+<script type="module" src="status-firebase.js"></script>
+<script>
+function goBack() {
+  window.location.href = "menu.html";
+}
+</script>
+</body>
+</html>

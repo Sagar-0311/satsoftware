@@ -1,0 +1,368 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f7fafd !important;
+  margin: 0;
+  padding: 0 0 40px 0;
+}
+h1 {
+  text-align: left;
+  color: #002553 !important;
+  font-size: 1rem;
+  margin: 0px 0 0px 0;
+  letter-spacing: 1px;
+}
+.header-bar h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color:  #002553;
+  letter-spacing: 1px;
+  flex: 1;
+}
+.header-bar {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  margin-bottom: 0px;
+}
+.back-button {
+  background:  #002553;
+  color: #fff;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-right: 50px;
+  transition: background 0.18s;
+}
+.back-button:hover {
+  background: #1d4ed8;
+}
+.form-fields {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px 14px;
+  padding: 0 36px;
+  margin-bottom: 13 px;
+  font-size: 12px;
+  /* grid-related lines हटा दो: grid-template-columns वगैरह */
+}
+.form-fields label {
+  flex: 1 1 160px;   /* Each label will try to take at least 160px, shrink as needed */
+  min-width: 120px;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155 !important;
+  letter-spacing: 0.1px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+input, select {
+  width: 100% !important;
+  border-radius: 4px;
+  border: 1.2px solid #94a3b8 !important;
+  font-size: 12px;
+  box-sizing: border-box;
+  min-width: 50px;
+  padding: 6px;
+  max-width: 260px;
+}
+input:focus, select:focus {
+  border: 1.5px solid #002553 !important; 
+  outline: none;
+}
+input[readonly] {
+  background: #ececec;
+}
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 36px 15px 36px;
+  align-items: center;
+  margin-top: 15px;
+}
+.button-row > :nth-child(5) {
+  margin-left: auto !important;
+}
+.button-row .btn {
+  padding: 6px 14px;
+  font-weight: 500;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background:  #002553;
+  color: #fff;
+  transition: background 0.18s, transform 0.1s;
+}
+.button-row .btn:hover {
+  background: #005499;
+  transform: translateY(-1px);
+}
+.button-row .btn.green {
+  background: #002553 !important;   /* Success/Green */
+  color: #ffffff;
+}
+.button-row .btn.green:hover {
+  background: #00802f !important;
+}
+
+.button-row .btn.yellow {
+  background: #ffd600 !important;
+  color: #222 !important;
+}
+.button-row .btn.yellow:hover {
+  background: #ffc400 !important;
+  color: #222 !important;
+}
+.button-row .btn.gray {
+  background: #888888 !important;
+  color: #ffffff !important;
+}
+.button-row .btn.gray:hover {
+  background: #00295c !important;
+  color: #ffffff !important;
+}
+.button-row .btn.red {
+  background: #d32f2f !important;
+}
+.button-row .btn.red:hover {
+  background: #ab2020 !important;
+}
+.button-row .btn.print-btn {
+  background: #0f8eb5 !important;
+  color: #fff !important;
+}
+.button-row .btn.print-btn:hover {
+  background: #004141 !important;
+}
+#loader {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #d32f2f;
+  margin-bottom: 18px;
+  margin-left: 36px;
+}
+#search {
+  margin: 0 0 5px 36px;
+  width: 240px;
+  padding: 8px 5px;
+  font-size: 10px;
+  border-radius: 4px;
+  border: 1px solid #c1c6cd;
+  background: #fafbfc;
+  transition: border 0.2s;
+}
+.table-section {
+  background: #fff !important;
+  border-radius: 8px;
+  box-shadow: 0 1px 8px 0 rgba(80,100,160,0.10);
+  max-height: 64vh;
+  margin: 0 36px 0 36px;     /* Top margin zero kar diya */
+  overflow-x: auto;
+  overflow-y: auto;
+}
+table {
+  width: 100%;
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin-top: 8px;
+  background: #fff;
+  font-size: 10px;
+  white-space: nowrap;
+  border-radius: 6px;
+  border: 1.2px solid #222;  /* Thicker black border */
+  box-shadow: 0 1px 6px rgba(120,130,140,0.07);
+}
+thead tr {
+  background: #000000 !important;   /* Pure black */
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+th, thead th {
+  color: #000000 !important;        /* Force header text white */
+  background: #a1deff !important;   /* Force header bg black */
+}
+th, td {
+  border: 1.4px solid #222 !important;  /* Black border */
+  background: unset !important;   
+  color: #111 !important;       /* Solid black text */
+  min-width: 25px;
+  font-size: 13px;
+  font-weight: bold;
+  white-space: nowrap;
+  border-bottom: 2px solid #b6bfc7;
+}
+thead th {
+  border-bottom: 1.5px solid  #222 !important;
+}
+tr:hover {
+  background: #ffffff !important;
+  color: #000000;
+}
+th input {
+  width: 100%;
+  min-width: 30px;
+  max-width: 500px;
+  box-sizing: border-box;
+  font-size: 11px;
+  padding: 4px 5px;
+  margin-top: 3px;
+  border-radius: 4px;
+  border: 1px solid #222;
+  background: #fff;
+  color: #111;
+}
+/* File input hide */
+.button-row input[type="file"] {
+  display: none;
+}
+/* Modern custom file button */
+.button-row .file-label {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1.5px solid #b6bfc7;
+  background: #f6f8fb;
+  color: #283346;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 8px;
+  min-width: 60px;
+  text-align: center;
+  transition: background 0.18s;
+}
+.button-row .file-label:hover {
+  background: #e3e8ee;
+  color: #2b2d38;
+}
+/* Uniform look for non .btn buttons */
+.button-row button:not(.btn) {
+  padding: 6px 14px;
+  min-width: 70px;
+  min-height: 26px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  background: #9fcaff;
+  color: #1a1a1a;
+  border: 1px solid #000000;
+  transition: background 0.15s;
+  box-shadow: 0 1px 3px rgba(30,40,60,0.04);
+}
+.button-row button:not(.btn):hover {
+  background: #c2c7cf;
+}
+/* Input box (printCardNumbers) match */
+.button-row input[type="text"] {
+  min-height: 28px;
+  padding: 0 12px;
+  border-radius: 4px;
+  border: 1px solid #000000;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+.button-row .btn.print-btn {
+  background: #0f8eb5;
+  color: #fff;
+}
+.button-row .btn.print-btn:hover {
+  background: #004141;
+}
+#printCardNumbers {
+  height: 22px !important;       /* Patla karega */
+  padding: 2px 6px !important;   /* Top-bottom padding kam */
+  font-size: 11px !important;
+  border-radius: 4px !important;
+  color: #000000;
+  /* Width nahi chhedna yadi aapko chahiye jitna hai utna hi rahe */
+}
+.table-section thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #222 !important
+}
+.pagination-controls button {
+  margin: 0 3px;
+  padding: 4px 10px;
+  font-size: 13px;
+  border-radius: 4px;
+  background: #f1f5f9 !important;
+  color: #002553 !important;
+  border: 1px solid #cbd5e1 !important;
+  cursor: pointer;
+  min-width: 28px;
+  transition: background 0.18s;
+}
+.pagination-controls button[disabled] {
+  background: #ececec !important;
+  color: #aaa !important;
+  cursor: not-allowed;
+}
+.pagination-controls button[style*="font-weight:bold"] {
+  background: #002553 !important;
+  color: #fff !important;
+  font-weight: bold !important;
+}
+tbody tr:nth-child(even) {
+  background:#ffffff !important;    /* Light blue-gray */
+}
+tbody tr:nth-child(odd) {
+  background: #ffffff !important;
+}
+tbody tr:hover {
+   background: #e9ecef !important; 
+}
+.table-section {
+  scrollbar-color: #003d63 #e6edfa;
+  scrollbar-width: thin;
+}
+.table-section::-webkit-scrollbar-thumb {
+  background: #002553;
+  border-radius: 4px;
+}
+.table-section::-webkit-scrollbar-track {
+  background: #e6edfa;
+}
+.show-dispatch-label {
+  font-weight: 500;
+  font-size: 15px;
+  gap: 6px;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+.show-dispatch-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: #002553;
+}
+.show-dispatch-label span {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 0;
+  font-size: 15px;
+}
+.button-row.secondary-controls {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-right: 36px;
+  margin-bottom: 10px;
+}
+.button-row.main-controls {
+  margin-bottom: 0;
+}

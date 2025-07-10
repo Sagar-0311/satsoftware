@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SAT World - Menu</title>
+  <link rel="stylesheet" href="menu.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ff4e50, #f9d423);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-bar {
+      width: 10%;
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px 20px;
+      box-sizing: border-box;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .top-bar button {
+      background-color: #FF0000;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      font-weight: bold;
+      font-size: 13px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .top-bar button:hover {
+      background-color: #cc0000;
+    }
+
+    .menu-container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      width: 400px;
+      margin: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .menu-container h2 {
+      color: #c40000;
+      margin-bottom: 30px;
+    }
+
+    .menu-container button {
+      display: block;
+      width: 100%;
+      margin: 15px 0;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background-color: #FF0000;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .menu-container button:hover {
+      background-color: #cc0000;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <div class="menu-container">
+    <h2>Select Module</h2>
+    <button onclick="openCreation()">Kanban Card Creation</button>
+    <button onclick="openTracking()">Kanban Card Tracking Board</button>
+    <button onclick="openPlanning()">Projection Planning Board</button>
+    <button onclick="openWorkplan()">Production Record</button>
+  </div>
+
+  <script>
+    function openCreation() {
+      window.location.href = "creation.html";
+    }
+
+    function openTracking() {
+      window.location.href = "tracking.html";
+    }
+
+    function openPlanning() {
+      window.location.href = "planning.html"; // Yeh naya page khulega
+    }
+    function openWorkplan() {
+      window.location.href = "workplan.html"; // Yeh naya page khulega
+    }
+
+    function logout() {
+      alert("You have been logged out.");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

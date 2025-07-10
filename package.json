@@ -1,0 +1,49 @@
+{
+  "name": "satsoftware",
+  "version": "2.0.0",
+  "description": "SAT World kanban tracking software",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-packager .",
+    "dist": "electron-builder"
+  },
+  "author": "Sagar Patel",
+  "license": "ISC",
+  "build": {
+    "appId": "com.sunidhiagrotech.sattracker",
+    "productName": "SAT Tracker",
+    "win": {
+      "target": "nsis",
+      "icon": "logo.ico",
+      "signAndEditExecutable": false
+    },
+    "directories": {
+      "output": "dist"
+    },
+   "files": [
+  "**/*",
+  "!node_modules/.cache"
+],
+"publish": [ 
+  {
+    "provider": "github",
+    "owner": "Sagar-0311",
+    "repo": "satsoftware"
+  }
+]
+  },
+  "devDependencies": {
+    "electron": "^36.5.0",
+    "electron-builder": "^26.0.12",
+    "electron-packager": "^17.1.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "nodemailer": "^7.0.5",
+    "xlsx": "^0.18.5"
+  },
+  "keywords": [],
+  "type": "commonjs"
+}
