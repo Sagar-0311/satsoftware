@@ -10,14 +10,7 @@ import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "https://
 
 
 // 2) आपका कॉन्फ़िग (इसीमें वो API key वगैरह)। पहले से कॉपी किया हुआ:
-const firebaseConfig = {
-  apiKey: "AIzaSyAprA-Lu3u7rKfRdTadCYwsAjXIyaFANOI",
-  authDomain: "sat-software-cloud.firebaseapp.com",
-  projectId: "sat-software-cloud",
-  storageBucket: "sat-software-cloud.firebasestorage.app",
-  messagingSenderId: "447908799081",
-  appId: "1:447908799081:web:a39495b31b9bf4fd14b8f8",
-  measurementId: "G-8L1HP7GKCV"
+
 };
 
 // 3) Firebase इनिशियलाइज़
